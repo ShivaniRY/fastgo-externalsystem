@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="FastGo-GetSchedules-ImplementationSub_Flow" doc:id="dadb383c-e1dc-4039-afce-a4ad8c7384ef" >
+		<db:select doc:name="Select" doc:id="24e74ea2-bfd0-4793-a701-8f2bd2de0ac2" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM `routes&schedule`.`fg-schedules` Where companyName='FastGo']]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="d627b237-b2e5-43ad-aa0a-aa8b343379eb" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
